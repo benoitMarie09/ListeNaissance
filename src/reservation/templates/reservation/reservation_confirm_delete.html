@@ -1,26 +1,18 @@
+{% extends "ListeNaissance/base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static 'reservation/css/style.css' %}" />
-    <title>Liste naissance</title>
-  </head>
-  <body>
-    <header>
-      header
-    </header>
-    <main>
-    <article>
-      <form method="post">
-        {% csrf_token %}
-        <p>Êtes vous sur de vouloir annuler la reservation de :"{{ object.cadeau.titre }}"?</p>
-        {{ form }}
-        <input type="submit" value="Confirmer"/>
-      </form>
-    </article>
-    </main>
-  </body>
-</html>
+{% block custom_css %}
+  <link rel="stylesheet" href="{% static 'reservation/css/delete.css' %}" />
+{% endblock custom_css %}
+{% block head_data %}
+  {% include "ListeNaissance/header.html" %}
+{% endblock head_data %}
+{% block main_data %}
+  <article>
+    <form action="{% url 'liste:liste' %}" method="post">
+      {% csrf_token %}
+      <p>Êtes vous sur de vouloir annuler la reservation de :"{{ object.cadeau.titre }}"?</p>
+      {{ form }}
+      <input type="submit" value="Confirmer"/>
+    </form>
+  </article>
+{% endblock main_data %}
